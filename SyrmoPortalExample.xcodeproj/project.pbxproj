@@ -59,7 +59,7 @@
 		9D149D761E5AB48E00C5C891 /* TrickDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TrickDetail.swift; path = Views/TrickDetail.swift; sourceTree = "<group>"; };
 		9D149D781E5AB4E200C5C891 /* TrickName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TrickName.swift; path = Views/TrickName.swift; sourceTree = "<group>"; };
 		9D149D7A1E5AB73B00C5C891 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		9D149D7C1E5AB84600C5C891 /* NavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
+		9D149D7C1E5AB84600C5C891 /* NavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NavigationBar.swift; path = Views/NavigationBar.swift; sourceTree = "<group>"; };
 		9D149D801E5AB98900C5C891 /* FeedItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedItem.swift; path = Views/FeedItem.swift; sourceTree = "<group>"; };
 		9D149D841E5AC73D00C5C891 /* GuidoMBAvatar.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = GuidoMBAvatar.jpg; sourceTree = "<group>"; };
 		9D149D871E5AC78600C5C891 /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Regular.ttf"; path = "Fonts/Montserrat-Regular.ttf"; sourceTree = "<group>"; };
