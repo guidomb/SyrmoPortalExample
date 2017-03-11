@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		9D149D5B1E5AA4E000C5C891 /* Syrmo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D149D5A1E5AA4E000C5C891 /* Syrmo.swift */; };
 		9D149D5F1E5AA67200C5C891 /* YogaKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D149D5D1E5AA67200C5C891 /* YogaKit.framework */; };
-		9D149D601E5AA67200C5C891 /* PortalView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D149D5E1E5AA67200C5C891 /* PortalView.framework */; };
 		9D149D641E5AA78D00C5C891 /* SocialActionBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D149D631E5AA78D00C5C891 /* SocialActionBar.swift */; };
 		9D149D681E5AA86A00C5C891 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D149D671E5AA86A00C5C891 /* Style.swift */; };
 		9D149D6A1E5AA9A200C5C891 /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D149D691E5AA9A200C5C891 /* Header.swift */; };
@@ -29,6 +28,8 @@
 		9D3C0ACA1E5A896D008F63A4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3C0AC91E5A896D008F63A4 /* AppDelegate.swift */; };
 		9D3C0AD11E5A896D008F63A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D3C0AD01E5A896D008F63A4 /* Assets.xcassets */; };
 		9D3C0AD41E5A896D008F63A4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9D3C0AD21E5A896D008F63A4 /* LaunchScreen.storyboard */; };
+		9D5AB4781E74BCEA0053E419 /* PortalView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D5AB4771E74BCEA0053E419 /* PortalView.framework */; };
+		9D5AB47D1E74BDBA0053E419 /* PortalView.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9D5AB47C1E74BDBA0053E419 /* PortalView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -42,12 +43,21 @@
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		9D5AB4791E74BD8B0053E419 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				9D5AB47D1E74BDBA0053E419 /* PortalView.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		9D149D5A1E5AA4E000C5C891 /* Syrmo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Syrmo.swift; sourceTree = "<group>"; };
 		9D149D5D1E5AA67200C5C891 /* YogaKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = YogaKit.framework; path = Carthage/Build/iOS/YogaKit.framework; sourceTree = "<group>"; };
-		9D149D5E1E5AA67200C5C891 /* PortalView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PortalView.framework; path = Carthage/Build/iOS/PortalView.framework; sourceTree = "<group>"; };
 		9D149D631E5AA78D00C5C891 /* SocialActionBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SocialActionBar.swift; path = Views/SocialActionBar.swift; sourceTree = "<group>"; };
 		9D149D671E5AA86A00C5C891 /* Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Style.swift; path = Views/Style.swift; sourceTree = "<group>"; };
 		9D149D691E5AA9A200C5C891 /* Header.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Header.swift; path = Views/Header.swift; sourceTree = "<group>"; };
@@ -69,6 +79,8 @@
 		9D3C0AD01E5A896D008F63A4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9D3C0AD31E5A896D008F63A4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9D3C0AD51E5A896D008F63A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9D5AB4771E74BCEA0053E419 /* PortalView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PortalView.framework; path = "/Users/guidomb/Documents/projects/guidomb/SyrmoPortalExample/Carthage/Checkouts/PortalView/build/Debug-iphoneos/PortalView.framework"; sourceTree = "<absolute>"; };
+		9D5AB47C1E74BDBA0053E419 /* PortalView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PortalView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,8 +88,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D5AB4781E74BCEA0053E419 /* PortalView.framework in Frameworks */,
 				9D149D5F1E5AA67200C5C891 /* YogaKit.framework in Frameworks */,
-				9D149D601E5AA67200C5C891 /* PortalView.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,8 +99,8 @@
 		9D149D5C1E5AA67100C5C891 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9D5AB47C1E74BDBA0053E419 /* PortalView.framework */,
 				9D149D5D1E5AA67200C5C891 /* YogaKit.framework */,
-				9D149D5E1E5AA67200C5C891 /* PortalView.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -166,6 +178,7 @@
 				9D3C0AC41E5A896D008F63A4 /* Resources */,
 				9D149D591E5A8A6200C5C891 /* Embed Frameworks */,
 				9D149D611E5AA67600C5C891 /* Carthage */,
+				9D5AB4791E74BD8B0053E419 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -232,7 +245,6 @@
 			files = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/PortalView.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/YogaKit.framework",
 			);
 			name = Carthage;
@@ -381,6 +393,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Carthage/Checkouts/PortalView/build/Debug-iphoneos",
 				);
 				INFOPLIST_FILE = SyrmoPortalExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -397,6 +410,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Carthage/Checkouts/PortalView/build/Debug-iphoneos",
 				);
 				INFOPLIST_FILE = SyrmoPortalExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

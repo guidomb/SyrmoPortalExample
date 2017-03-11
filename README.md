@@ -5,6 +5,6 @@ Install [Carthage](https://github.com/Carthage/Carthage) first, then run
 ```
 git clone git@github.com:guidomb/SyrmoPortalExample.git 
 cd SyrmoPortalExample
-carthage bootstrap
+carthage bootstrap --use-submodules
 open SyrmoPortalExample.xcodeproj
 ```

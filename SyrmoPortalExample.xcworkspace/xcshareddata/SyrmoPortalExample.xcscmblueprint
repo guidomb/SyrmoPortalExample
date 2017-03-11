@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "361F99DD929396586B7AA5FB0F8641BEB95EE924",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "361F99DD929396586B7AA5FB0F8641BEB95EE924" : 9223372036854775807,
+    "2C5853759730262EAECE25C2A669EDB2499D661E" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "7002A2A9-FBE5-4A2E-83EF-F25A2C48EDDC",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "361F99DD929396586B7AA5FB0F8641BEB95EE924" : "SyrmoPortalExample\/",
+    "2C5853759730262EAECE25C2A669EDB2499D661E" : "SyrmoPortalExample\/Carthage\/Checkouts\/PortalView\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "SyrmoPortalExample",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "SyrmoPortalExample.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/guidomb\/PortalView.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "2C5853759730262EAECE25C2A669EDB2499D661E"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:guidomb\/SyrmoPortalExample.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "361F99DD929396586B7AA5FB0F8641BEB95EE924"
+    }
+  ]
+}
