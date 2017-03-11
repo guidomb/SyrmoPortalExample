@@ -20,10 +20,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         
         let skateTricks = feedItems(itemsCount: 20)
-        let root = createFeedView(items: skateTricks)
+        let (root, component) = createFeedView(items: skateTricks)
         let presenter = UIKitComponentManager<Message>(window: window!)
         presenter.isDebugModeEnabled = false
-        presenter.present(component: root)
+        presenter.present(component: component, with: root, modally: false)
         
         
         //        fetchReplayImage(render: presenter.render)
@@ -52,8 +52,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 
             case .show(let trickID):
                 if let trick = skateTricks.first(where:  { $0.object.id.value == trickID.value }) {
-                    let view = createDetailView(model: trick)
-                    presenter.present(component: view)
+                    let (root, component) = createDetailView(model: trick)
+                    presenter.present(component: component, with: root, modally: false)
                 }
                 
             default:

@@ -148,11 +148,11 @@ public func feedItems(itemsCount: UInt) -> [SocialInteractive<SkateTrick>] {
     }
 }
 
-public func createDetailView(model: SocialInteractive<SkateTrick>) -> RootComponent<Message> {
-    return RootComponent<Message>.withNavigationBar(syrmoNavigationBar(), component: skateTrickDetailView(skateTrick: model))
+public func createDetailView(model: SocialInteractive<SkateTrick>) -> (RootComponent<Message>, Component<Message>) {
+    return (.stack(syrmoNavigationBar()), skateTrickDetailView(skateTrick: model))
 }
 
-public func createFeedView(items: [SocialInteractive<SkateTrick>]) -> RootComponent<Message> {
+public func createFeedView(items: [SocialInteractive<SkateTrick>]) -> (RootComponent<Message>, Component<Message>) {
     
     let tableItems = items.map { item in
         tableItem(
@@ -167,22 +167,22 @@ public func createFeedView(items: [SocialInteractive<SkateTrick>]) -> RootCompon
         }
     }
     
-    return RootComponent<Message>.withNavigationBar(syrmoNavigationBar(), component:
-        table(
-            properties: properties() {
-                $0.items = tableItems
-                $0.showsVerticalScrollIndicator = false
-            },
-            style: tableStyleSheet() { base, table in
-                base.backgroundColor = ColorPalette.Secondary.color04
-            },
-            layout: layout() {
-                $0.flex = flex() {
-                    $0.grow = .one
-                }
+    let component: Component<Message> = table(
+        properties: properties() {
+            $0.items = tableItems
+            $0.showsVerticalScrollIndicator = false
+        },
+        style: tableStyleSheet() { base, table in
+            base.backgroundColor = ColorPalette.Secondary.color04
+        },
+        layout: layout() {
+            $0.flex = flex() {
+                $0.grow = .one
             }
-        )
+        }
     )
+
+    return (.stack(syrmoNavigationBar()), component)
 }
 
 let root = createDetailView(model: model())
