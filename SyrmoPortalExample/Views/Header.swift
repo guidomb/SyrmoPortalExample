@@ -6,14 +6,14 @@
 //  Copyright © 2017 Guido Marucci Blas. All rights reserved.
 //
 
-import PortalView
+import Portal
 
 internal let headerHeight: UInt = 39
 
-public func header(skateTrick: SkateTrick) -> Component<Message> {
+public func header(skateTrick: SkateTrick) -> Component<Syrmo.Action> {
     let user = skateTrick.createdBy
 
-    let nameAndLocation: Component<Message> = container(
+    let nameAndLocation: Component<Syrmo.Action> = container(
         children: [
             label(
                 text: user.name,
@@ -61,14 +61,14 @@ public func header(skateTrick: SkateTrick) -> Component<Message> {
         }
     )
 
-    let createdAt: Component<Message> = label(
+    let createdAt: Component<Syrmo.Action> = label(
         text: skateTrick.createdAt.timeAgo,
         style: labelStyleSheet() { base, label in
             base.backgroundColor = .white
             label.textColor = ColorPalette.Secondary.color04
             label.textSize = 10
             label.textFont = Montserrat.regular
-            label.textAligment = .right
+            label.textAlignment = .right
         },
         layout: layout() {
             $0.flex = flex() {

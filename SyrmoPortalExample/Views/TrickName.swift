@@ -7,11 +7,11 @@
 //
 
 import Foundation
-import PortalView
+import Portal
 
 internal let trickNameViewHeight: UInt = 30
 
-public func trickNameView(name: String, textSize: UInt = 21, height: UInt = 35) -> Component<Message> {
+public func trickNameView(name: String, textSize: UInt = 21, height: UInt = 35) -> Component<Syrmo.Action> {
     let topMargin: UInt = 5
     return label(
         text: name,
@@ -22,7 +22,7 @@ public func trickNameView(name: String, textSize: UInt = 21, height: UInt = 35) 
             label.textFont = Montserrat.bold
         },
         layout: layout() {
-            $0.height = PortalView.Dimension(value: height - topMargin)
+            $0.height = Portal.Dimension(value: height - topMargin)
             $0.margin = .by(edge: edge() {
                 $0.horizontal = 10
                 $0.top = topMargin

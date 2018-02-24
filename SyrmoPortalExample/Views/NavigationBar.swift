@@ -7,14 +7,14 @@
 //
 
 import Foundation
-import PortalView
+import Portal
 
-public func syrmoNavigationBar() -> NavigationBar<Message> {
+public func syrmoNavigationBar() -> NavigationBar<Syrmo.Action> {
     return navigationBar(
-        properties: properties(
-            title: .image(UIImageContainer.loadImage(named: "NavbarLogo")!),
-            hideBackButtonTitle: true
-        ),
+        properties: properties() {
+            $0.title = .image(.localImage(named: "NavbarLogo"))
+            $0.backButtonTitle = ""
+        },
         style: navigationBarStyleSheet() { base, navBar in
             base.backgroundColor = ColorPalette.Secondary.color05
             navBar.isTranslucent = false

@@ -7,17 +7,17 @@
 //
 
 import Foundation
-import PortalView
+import Portal
 
-public func skateTrickDetailView(skateTrick: SocialInteractive<SkateTrick>, screenWidth: UInt = UInt(getScreenSize().width), height: UInt = getDetailReplayImageHeight(), using bundle: Bundle = .main) -> Component<Message> {
+public func skateTrickDetailView(skateTrick: SocialInteractive<SkateTrick>, screenWidth: UInt = UInt(getScreenSize().width), height: UInt = getDetailReplayImageHeight(), using bundle: Bundle = .main) -> Component<Syrmo.Action> {
     return container(
         children: [
             header(skateTrick: skateTrick.object),
             replayView(replay: skateTrick.object.replay, height: height, using: bundle),
             trickNameView(name: skateTrick.object.name),
             statsView(stats: skateTrick.object.stats, screenWidth: screenWidth),
-            trickMapView(skateTrick: skateTrick.object, using: bundle),
-            socialActionBar(forElement: skateTrick, using: bundle).map { .socialAction(action: $0) }
+            trickMapView(skateTrick: skateTrick.object),
+            socialActionBar(forElement: skateTrick, using: bundle).map { .sendMessage(.socialAction(action: $0)) }
         ],
         style: styleSheet() {
             $0.backgroundColor = .white
@@ -27,7 +27,7 @@ public func skateTrickDetailView(skateTrick: SocialInteractive<SkateTrick>, scre
                 $0.direction = .column
                 $0.grow = .one
             }
-            $0.aligment = aligment() {
+            $0.alignment = alignment() {
                 $0.items = .stretch
             }
         }

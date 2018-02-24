@@ -6,7 +6,7 @@
 //  Copyright © 2017 Guido Marucci Blas. All rights reserved.
 //
 import Foundation
-import PortalView
+import Portal
 
 public struct ObjectID<ObjectType> {
     

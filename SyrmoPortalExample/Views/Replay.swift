@@ -7,9 +7,9 @@
 //
 
 import Foundation
-import PortalView
+import Portal
 
-public func replayView(replay: Image?, height: UInt, using bundle: Bundle) -> Component<Message> {
+public func replayView(replay: Image?, height: UInt, using bundle: Bundle) -> Component<Syrmo.Action> {
     if let replay = replay {
         return container(
             children: [
@@ -28,7 +28,7 @@ public func replayView(replay: Image?, height: UInt, using bundle: Bundle) -> Co
                         label.textColor = .white
                         label.textSize = 12
                         label.textFont = Montserrat.regular
-                        label.textAligment = .center
+                        label.textAlignment = .center
                     }
                 )
             ],
@@ -38,7 +38,7 @@ public func replayView(replay: Image?, height: UInt, using bundle: Bundle) -> Co
             layout: layout() {
                 $0.height = Dimension(value: height)
                 $0.justifyContent = .center
-                $0.aligment = aligment() {
+                $0.alignment = alignment() {
                     $0.items = .center
                 }
             }
@@ -46,7 +46,7 @@ public func replayView(replay: Image?, height: UInt, using bundle: Bundle) -> Co
     }
 }
 
-fileprivate func fullscreenLabel(bundle: Bundle) -> Component<Message> {
+fileprivate func fullscreenLabel(bundle: Bundle) -> Component<Syrmo.Action> {
     return container(
         children: [
             label(
@@ -55,11 +55,11 @@ fileprivate func fullscreenLabel(bundle: Bundle) -> Component<Message> {
                     label.textColor = .white
                     label.textSize = 12
                     label.textFont = Montserrat.regular
-                    label.textAligment = .center
+                    label.textAlignment = .center
                 }
             ),
             imageView(
-                image: UIImageContainer.loadImage(named: "Fullscreen", from: bundle)!,
+                image: Image.localImage(named: "Fullscreen"),
                 style: styleSheet(),
                 layout: layout() {
                     $0.width = Dimension(value: 20)
@@ -78,35 +78,23 @@ fileprivate func fullscreenLabel(bundle: Bundle) -> Component<Message> {
             })
             $0.height = Dimension(value: 30)
             $0.width = Dimension(value: 100)
-            $0.aligment = aligment() {
+            $0.alignment = alignment() {
                 $0.items = .center
             }
         }
     )
 }
 
-fileprivate func loaderView(using bundle: Bundle) -> Component<Message> {
-    if let loaderImage = UIImageContainer.loadImage(named: "Loader", from: bundle) {
-        return imageView(
-            image: loaderImage,
-            style: styleSheet() {
-                $0.backgroundColor = .black
-            },
-            layout: layout() {
-                $0.width = Dimension(value: 35)
-                $0.height = Dimension(value: 35)
-            }
-        )
-    } else {
-        return container(
-            children: [],
-            style: styleSheet() {
-                $0.backgroundColor = .red
-            },
-            layout: layout() {
-                $0.width = Dimension(value: 35)
-                $0.height = Dimension(value: 35)
-            }
-        )
-    }
+fileprivate func loaderView(using bundle: Bundle) -> Component<Syrmo.Action> {
+    return imageView(
+        image: Image.localImage(named: "Loader"),
+        style: styleSheet() {
+            $0.backgroundColor = .black
+        },
+        layout: layout() {
+            $0.width = Dimension(value: 35)
+            $0.height = Dimension(value: 35)
+        }
+    )
+    
 }

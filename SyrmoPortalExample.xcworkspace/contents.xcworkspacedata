@@ -5,6 +5,6 @@
       location = "group:SyrmoPortalExample.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:Carthage/Checkouts/PortalView/PortalView.xcodeproj">
+      location = "group:Carthage/Checkouts/Portal/Portal.xcodeproj">
    </FileRef>
 </Workspace>

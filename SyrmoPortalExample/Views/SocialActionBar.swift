@@ -5,7 +5,7 @@
 //  Created by Guido Marucci Blas on 2/19/17.
 //  Copyright © 2017 Guido Marucci Blas. All rights reserved.
 //
-import PortalView
+import Portal
 import UIKit
 
 internal let socialActionBarHeight: UInt = 55
@@ -26,7 +26,7 @@ public enum SocialActionMessage<ObjectType> {
 
 }
 
-public func socialActionBar<ObjectType: Identifiable>(
+public func socialActionBar<ObjectType>(
     forElement element: SocialInteractive<ObjectType>,
     using bundle: Bundle) -> Component<SocialActionMessage<ObjectType>> {
 
@@ -49,7 +49,7 @@ public func socialActionBar<ObjectType: Identifiable>(
         children: [
             button(
                 properties: properties() {
-                    $0.icon = UIImageContainer.loadImage(named: "Comment", from: bundle)
+                    $0.icon = .localImage(named: "Comment")
                     $0.text = "Comments (\(element.commentsCount))"
                     $0.onTap = .showComments(object: element.object.id)
                 },
@@ -58,7 +58,7 @@ public func socialActionBar<ObjectType: Identifiable>(
             ),
             button(
                 properties: properties() {
-                    $0.icon = UIImageContainer.loadImage(named: "LikeOff", from: bundle) // TODO remove coupling with UIKit
+                    $0.icon = .localImage(named: "LikeOff") // TODO remove coupling with UIKit
                     $0.text = "Likes (\(element.likesCount))"
                     $0.isActive = element.likedByMe
                     $0.onTap = .like(object: element.object.id)

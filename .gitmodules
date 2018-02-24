@@ -4,3 +4,6 @@
 [submodule "Carthage/Checkouts/PortalView"]
 	path = Carthage/Checkouts/PortalView
 	url = https://github.com/guidomb/PortalView.git
+[submodule "Carthage/Checkouts/Portal"]
+	path = Carthage/Checkouts/Portal
+	url = https://github.com/guidomb/Portal.git

@@ -6,7 +6,7 @@
 //  Copyright © 2017 Guido Marucci Blas. All rights reserved.
 //
 
-import PortalView
+import Portal
 import Foundation
 
 fileprivate let skateTrickViewSeparatorHeight: UInt = 10
@@ -22,7 +22,7 @@ internal let skateTrickViewHeight =
 public func skateTrickView(
     skateTrick: SocialInteractive<SkateTrick>,
     screenWidth: UInt = UInt(getScreenSize().width),
-    using bundle: Bundle = .main) -> Component<Message> {
+    using bundle: Bundle = .main) -> Component<Syrmo.Action> {
     
     return container(
         children: [
@@ -30,7 +30,7 @@ public func skateTrickView(
             replayView(replay: skateTrick.object.replay, height: getReplayImageHeight(), using: bundle),
             trickNameView(name: skateTrick.object.name, textSize: 18, height: trickNameViewHeight),
             statsView(stats: skateTrick.object.stats, screenWidth: screenWidth, height: statsViewHeight),
-            socialActionBar(forElement: skateTrick, using: bundle).map { .socialAction(action: $0) },
+            socialActionBar(forElement: skateTrick, using: bundle).map { .sendMessage(.socialAction(action: $0)) },
             separator(height: skateTrickViewSeparatorHeight)
         ],
         style: styleSheet() {
@@ -41,14 +41,14 @@ public func skateTrickView(
             $0.flex = flex() {
                 $0.direction = .column
             }
-            $0.aligment = aligment() {
+            $0.alignment = alignment() {
                 $0.items = .stretch
             }
         }
     )
 }
 
-fileprivate func separator(height: UInt) -> Component<Message> {
+fileprivate func separator(height: UInt) -> Component<Syrmo.Action> {
     let margin: UInt = 1
     return container(
         children: [

@@ -7,11 +7,11 @@
 //
 
 import Foundation
-import PortalView
+import Portal
 
 internal let statsViewHeight: UInt = 55
 
-public func statsView(stats: SkateTrickStats, screenWidth: UInt, height: UInt? = .none) -> Component<Message> {
+public func statsView(stats: SkateTrickStats, screenWidth: UInt, height: UInt? = .none) -> Component<Syrmo.Action> {
 
     let statsViewProperties = [
         StatsViewProperties(title: "HEIGHT",    value: "\(stats.height)cm"),
@@ -34,7 +34,7 @@ public func statsView(stats: SkateTrickStats, screenWidth: UInt, height: UInt? =
             }
             if let height = height {
                 let bottomMargin: UInt = 10
-                $0.height = PortalView.Dimension(value: height - bottomMargin)
+                $0.height = Portal.Dimension(value: height - bottomMargin)
                 $0.margin = .by(edge: edge() {
                     $0.bottom = bottomMargin
                 })
@@ -43,7 +43,7 @@ public func statsView(stats: SkateTrickStats, screenWidth: UInt, height: UInt? =
     )
 }
 
-fileprivate func statsTitlesRow(flexGrow: Double, texts: [String], screenWidth: UInt) -> Component<Message> {
+fileprivate func statsTitlesRow(flexGrow: Double, texts: [String], screenWidth: UInt) -> Component<Syrmo.Action> {
     return statsRowView(
         flexGrow: flexGrow,
         propertiesBuilder: StatTextViewProperties.titlesRow,
@@ -52,7 +52,7 @@ fileprivate func statsTitlesRow(flexGrow: Double, texts: [String], screenWidth: 
     )
 }
 
-fileprivate func statsValuesRow(flexGrow: Double, texts: [String], screenWidth: UInt) -> Component<Message> {
+fileprivate func statsValuesRow(flexGrow: Double, texts: [String], screenWidth: UInt) -> Component<Syrmo.Action> {
     return statsRowView(
         flexGrow: flexGrow,
         propertiesBuilder: StatTextViewProperties.valuesRow,
@@ -108,7 +108,7 @@ fileprivate struct StatTextViewProperties {
 
 }
 
-fileprivate func statTextView(textViewProperties: StatTextViewProperties) -> Component<Message> {
+fileprivate func statTextView(textViewProperties: StatTextViewProperties) -> Component<Syrmo.Action> {
     return container(
         children: [
             label(
@@ -149,9 +149,9 @@ fileprivate func statTextView(textViewProperties: StatTextViewProperties) -> Com
 fileprivate func statsRowView(
     flexGrow: Double,
     propertiesBuilder: @escaping StatTextViewProperties.Builder,
-    texts: [String], screenWidth: UInt) -> Component<Message> {
+    texts: [String], screenWidth: UInt) -> Component<Syrmo.Action> {
     
-    let sortedTexts = texts.sorted { $0.characters.count > $1.characters.count }
+    let sortedTexts = texts.sorted { $0.count > $1.count }
     guard let longestText = sortedTexts.first, let flexGrow = FlexValue(rawValue: flexGrow) else { return container() }
 
     let marginPerRowEdge = UInt(10)

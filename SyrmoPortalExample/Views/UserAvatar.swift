@@ -7,16 +7,16 @@
 //
 
 import Foundation
-import PortalView
+import Portal
 
-public func userAvatarView(avatar: Image?) -> Component<Message> {
+public func userAvatarView(avatar: Image?) -> Component<Syrmo.Action> {
     if let avatar = avatar {
         return imageView(
             image: avatar,
             layout: layout() {
                 $0.height = Dimension(value: 34)
                 $0.width = Dimension(value: 34)
-                $0.aligment = aligment() {
+                $0.alignment = alignment() {
                     $0.`self` = .center
                 }
             }
@@ -30,7 +30,7 @@ public func userAvatarView(avatar: Image?) -> Component<Message> {
             layout: layout() {
                 $0.height = Dimension(value: 34)
                 $0.width = Dimension(value: 34)
-                $0.aligment = aligment() {
+                $0.alignment = alignment() {
                     $0.`self` = .center
                 }
             }

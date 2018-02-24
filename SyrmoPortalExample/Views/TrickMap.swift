@@ -7,13 +7,13 @@
 //
 
 import Foundation
-import PortalView
+import Portal
 
 
-public func trickMapView(skateTrick: SkateTrick, using bundle: Bundle) -> Component<Message> {
+public func trickMapView(skateTrick: SkateTrick) -> Component<Syrmo.Action> {
     let placemark = MapPlacemark(
         coordinates: skateTrick.location.coordiantes,
-        icon: UIImageContainer.loadImage(named: "Placemark", from: bundle)
+        icon: .localImage(named: "Placemark")
     )
 
     return container(

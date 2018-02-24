@@ -6,7 +6,7 @@
 //  Copyright © 2017 Guido Marucci Blas. All rights reserved.
 //
 
-import PortalView
+import Portal
 
 public struct ColorPalette {
 
@@ -33,19 +33,10 @@ public struct ColorPalette {
 
 }
 
-public enum Montserrat: Font {
+public struct Montserrat {
 
-    case regular
-    case bold
-
-    public var name: String {
-        switch self {
-        case .regular:
-            return "Montserrat-Regular"
-        case .bold:
-            return "Montserrat-Bold"
-        }
-    }
+    public static let regular = Font(name: "Montserrat-Regular")
+    public static let bold = Font(name: "Montserrat-Bold")
 
 }
 
