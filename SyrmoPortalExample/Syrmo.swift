@@ -148,7 +148,12 @@ public func feedItems(itemsCount: UInt) -> [SocialInteractive<SkateTrick>] {
             ),
             createdAt: Date())
         
-        return SocialInteractive(object: skateTrick, commentsCount: 12, likesCount: 36, likedByMe: false)
+        return SocialInteractive(
+            object: skateTrick,
+            commentsCount: UInt(arc4random_uniform(100)),
+            likesCount: UInt(arc4random_uniform(100)),
+            likedByMe: false
+        )
     }
 }
 

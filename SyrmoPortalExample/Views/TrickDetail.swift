@@ -9,15 +9,18 @@
 import Foundation
 import Portal
 
-public func skateTrickDetailView(skateTrick: SocialInteractive<SkateTrick>, screenWidth: UInt = UInt(getScreenSize().width), height: UInt = getDetailReplayImageHeight(), using bundle: Bundle = .main) -> Component<Syrmo.Action> {
+public func skateTrickDetailView(
+    skateTrick: SocialInteractive<SkateTrick>,
+    screenWidth: UInt = UInt(getScreenSize().width),
+    height: UInt = getDetailReplayImageHeight()) -> Component<Syrmo.Action> {
     return container(
         children: [
             header(skateTrick: skateTrick.object),
-            replayView(replay: skateTrick.object.replay, height: height, using: bundle),
+            replayView(replay: skateTrick.object.replay, height: height),
             trickNameView(name: skateTrick.object.name),
             statsView(stats: skateTrick.object.stats, screenWidth: screenWidth),
             trickMapView(skateTrick: skateTrick.object),
-            socialActionBar(forElement: skateTrick, using: bundle).map { .sendMessage(.socialAction(action: $0)) }
+            socialActionBar(forElement: skateTrick).map { .sendMessage(.socialAction(action: $0)) }
         ],
         style: styleSheet() {
             $0.backgroundColor = .white

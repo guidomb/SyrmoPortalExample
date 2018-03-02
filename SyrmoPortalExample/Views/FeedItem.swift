@@ -21,16 +21,15 @@ internal let skateTrickViewHeight =
 
 public func skateTrickView(
     skateTrick: SocialInteractive<SkateTrick>,
-    screenWidth: UInt = UInt(getScreenSize().width),
-    using bundle: Bundle = .main) -> Component<Syrmo.Action> {
+    screenWidth: UInt = UInt(getScreenSize().width)) -> Component<Syrmo.Action> {
     
     return container(
         children: [
             header(skateTrick: skateTrick.object),
-            replayView(replay: skateTrick.object.replay, height: getReplayImageHeight(), using: bundle),
+            replayView(replay: skateTrick.object.replay, height: getReplayImageHeight()),
             trickNameView(name: skateTrick.object.name, textSize: 18, height: trickNameViewHeight),
             statsView(stats: skateTrick.object.stats, screenWidth: screenWidth, height: statsViewHeight),
-            socialActionBar(forElement: skateTrick, using: bundle).map { .sendMessage(.socialAction(action: $0)) },
+            socialActionBar(forElement: skateTrick).map { .sendMessage(.socialAction(action: $0)) },
             separator(height: skateTrickViewSeparatorHeight)
         ],
         style: styleSheet() {

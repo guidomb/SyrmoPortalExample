@@ -27,8 +27,7 @@ public enum SocialActionMessage<ObjectType> {
 }
 
 public func socialActionBar<ObjectType>(
-    forElement element: SocialInteractive<ObjectType>,
-    using bundle: Bundle) -> Component<SocialActionMessage<ObjectType>> {
+    forElement element: SocialInteractive<ObjectType>) -> Component<SocialActionMessage<ObjectType>> {
 
     let buttonLayout = layout() {
         $0.flex = flex() {
@@ -58,7 +57,7 @@ public func socialActionBar<ObjectType>(
             ),
             button(
                 properties: properties() {
-                    $0.icon = .localImage(named: "LikeOff") // TODO remove coupling with UIKit
+                    $0.icon = .localImage(named: element.likedByMe ? "LikeOn" : "LikeOff")
                     $0.text = "Likes (\(element.likesCount))"
                     $0.isActive = element.likedByMe
                     $0.onTap = .like(object: element.object.id)

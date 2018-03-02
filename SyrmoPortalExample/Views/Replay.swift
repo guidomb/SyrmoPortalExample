@@ -9,18 +9,18 @@
 import Foundation
 import Portal
 
-public func replayView(replay: Image?, height: UInt, using bundle: Bundle) -> Component<Syrmo.Action> {
+public func replayView(replay: Image?, height: UInt) -> Component<Syrmo.Action> {
     if let replay = replay {
         return container(
             children: [
                 imageView(image: replay),
-                fullscreenLabel(bundle: bundle)
+                fullscreenLabel()
             ]
         )
     } else {
         return container(
             children:[
-                loaderView(using: bundle),
+                loaderView(),
                 label(
                     text: "Loading replay ...",
                     style: labelStyleSheet() { base, label in
@@ -46,7 +46,7 @@ public func replayView(replay: Image?, height: UInt, using bundle: Bundle) -> Co
     }
 }
 
-fileprivate func fullscreenLabel(bundle: Bundle) -> Component<Syrmo.Action> {
+fileprivate func fullscreenLabel() -> Component<Syrmo.Action> {
     return container(
         children: [
             label(
@@ -85,7 +85,7 @@ fileprivate func fullscreenLabel(bundle: Bundle) -> Component<Syrmo.Action> {
     )
 }
 
-fileprivate func loaderView(using bundle: Bundle) -> Component<Syrmo.Action> {
+fileprivate func loaderView() -> Component<Syrmo.Action> {
     return imageView(
         image: Image.localImage(named: "Loader"),
         style: styleSheet() {

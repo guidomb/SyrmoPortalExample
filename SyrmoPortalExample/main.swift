@@ -21,12 +21,14 @@ public struct Syrmo {
         case imageFetchError(image: RemoteImage, error: Error)
         case socialAction(action: SocialActionMessage<SkateTrick>)
         case show(trick: ObjectID<SkateTrick>)
+        case commentsAlertDismissed
         
     }
     
     public enum State {
         
         case idle
+        case feedLoaded(skateTricks: [SocialInteractive<SkateTrick>], trickNeedsCommentsAlert: SocialInteractive<SkateTrick>?)
         
     }
     
@@ -86,16 +88,74 @@ final class Application: Portal.Application {
     }
     
     func update(state: Syrmo.State, message: Syrmo.Message) -> (Syrmo.State, Syrmo.Command?)? {
-        return .none
+        print("Message received: \(message)")
+        switch (state, message) {
+            
+        case (.idle, .applicationStarted):
+            return  (.feedLoaded(skateTricks: feedItems(itemsCount: 20), trickNeedsCommentsAlert: .none), .none)
+            
+        case (.feedLoaded(var skateTricks, .none), .socialAction(let socialAction)):
+            switch socialAction {
+                
+            case .like(let skateTrickId):
+                var (index, skateTrick) = skateTricks.findBy(id: skateTrickId)!
+                skateTrick.likedByMe = !skateTrick.likedByMe
+                skateTrick.likesCount = skateTrick.likedByMe ? skateTrick.likesCount + 1 : skateTrick.likesCount - 1
+                skateTricks[index] = skateTrick
+                return (.feedLoaded(skateTricks: skateTricks, trickNeedsCommentsAlert: .none), .none)
+                
+            case .showComments(let skateTrickId):
+                let (_, skateTrick) = skateTricks.findBy(id: skateTrickId)!
+                return (.feedLoaded(skateTricks: skateTricks, trickNeedsCommentsAlert: skateTrick), .none)
+                
+            }
+            
+        case (.feedLoaded(let skateTricks, .some(_)), .commentsAlertDismissed):
+            return (.feedLoaded(skateTricks: skateTricks, trickNeedsCommentsAlert: .none), .none)
+            
+        default:
+            return .none
+        }
     }
     
     func view(for state: Syrmo.State) -> Syrmo.View {
-        let skateTricks = feedItems(itemsCount: 20)
-        return createFeedView(items: skateTricks)
+        switch state {
+            
+        case .idle:
+            return Syrmo.View(
+                navigator: .main,
+                root: .stack(syrmoNavigationBar()),
+                component: container()
+            )
+            
+        case .feedLoaded(let skateTricks, .none):
+            return createFeedView(items: skateTricks)
+            
+        case .feedLoaded(_, .some(let skateTrick)):
+            return Syrmo.View(
+                navigator: .main,
+                root: .stack(syrmoNavigationBar()),
+                alert: AlertProperties(
+                    title: "Social action triggered!",
+                    text: "Skate trick with ID '\(skateTrick.object.id.value)' has \(skateTrick.commentsCount) comments",
+                    button: AlertProperties.Button(title: "OK", onTap: .sendMessage(.commentsAlertDismissed))
+                )
+            )
+            
+        }
     }
     
     func subscriptions(for state: Syrmo.State) -> [Subscription<Syrmo.Message, Syrmo.Route, Syrmo.Subscription>] {
         return []
+    }
+    
+}
+
+extension Array where Element == SocialInteractive<SkateTrick> {
+    
+    func findBy(id: ObjectID<SkateTrick>) -> (Int, SocialInteractive<SkateTrick>)? {
+        guard let index = self.index(where: { $0.object.id == id }) else { return .none }
+        return (index, self[index])
     }
     
 }
@@ -106,6 +166,8 @@ let context = UIKitApplicationContext(
     subscriptionManager: SubscriptionManager(),
     rendererFactory: VoidCustomComponentRenderer.init
 )
+
+context.registerMiddleware(TimeLogger { print("M - Logger: \($0)") })
 
 PortalUIApplication.start(applicationContext: context) { message in
     switch message {

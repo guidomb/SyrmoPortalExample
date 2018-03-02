@@ -14,6 +14,14 @@ public struct ObjectID<ObjectType> {
     
 }
 
+extension ObjectID: Equatable {
+    
+    public static func ==(lhs: ObjectID<ObjectType>, rhs: ObjectID<ObjectType>) -> Bool {
+        return lhs.value == rhs.value
+    }
+    
+}
+
 public protocol Identifiable {
     
     var id: ObjectID<Self> { get }
