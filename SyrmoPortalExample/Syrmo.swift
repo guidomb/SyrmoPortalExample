@@ -166,7 +166,7 @@ public func createFeedView(items: [SocialInteractive<SkateTrick>]) -> Syrmo.View
     let tableItems = items.map { item in
         tableItem(
             height: skateTrickViewHeight,
-            onTap: .sendMessage(.show(trick: item.object.id)),
+            onTap: .navigate(to: .trickDetail(id: item.object.id)),
             selectionStyle: .none
         ) { _ in
             TableItemRender(

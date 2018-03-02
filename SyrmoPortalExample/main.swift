@@ -16,6 +16,7 @@ public struct Syrmo {
     public enum Message {
         
         case applicationStarted
+        case showFeed
         case dumb
         case imageFetched(image: Image, remote: RemoteImage)
         case imageFetchError(image: RemoteImage, error: Error)
@@ -28,16 +29,48 @@ public struct Syrmo {
     public enum State {
         
         case idle
-        case feedLoaded(skateTricks: [SocialInteractive<SkateTrick>], trickNeedsCommentsAlert: SocialInteractive<SkateTrick>?)
+        case feed(FeedState)
+        case trickDetail(skateTricks: [SocialInteractive<SkateTrick>], skateTrickIndex: Int)
         
     }
     
-    public enum Route: Portal.Route {
+    public enum FeedState {
         
-        case main
+        case fetching
+        case loaded(skateTricks: [SocialInteractive<SkateTrick>], trickNeedsCommentsAlert: SocialInteractive<SkateTrick>?)
+        
+    }
+    
+    public enum Route: Portal.Route, Equatable {
+        
+        case feed
+        case trickDetail(id: ObjectID<SkateTrick>)
+        
+        public static func ==(lhs: Route, rhs: Route) -> Bool {
+            switch (lhs, rhs) {
+                
+            case (.feed, .feed):
+                return true
+            
+            case (.trickDetail(let leftTrickId), .trickDetail(let rightTrickId)) where leftTrickId == rightTrickId:
+                return true
+                
+            default:
+                return false
+                
+            }
+        }
         
         public var previous: Syrmo.Route? {
-            return .none
+            switch self {
+                
+            case .feed:
+                return .none
+                
+            case .trickDetail:
+                return .feed
+                
+            }
         }
         
     }
@@ -81,10 +114,21 @@ final class Application: Portal.Application {
     
     var initialState: Syrmo.State { return .idle }
     
-    var initialRoute: Syrmo.Route { return .main }
+    var initialRoute: Syrmo.Route { return .feed }
     
     func translateRouteChange(from currentRoute: Syrmo.Route, to nextRoute: Syrmo.Route) -> Syrmo.Message? {
-        return .none
+        switch (currentRoute, nextRoute) {
+            
+        case (.feed, .trickDetail(let skateTrickId)):
+            return .show(trick: skateTrickId)
+            
+        case (.trickDetail, .feed):
+            return .showFeed
+            
+        default:
+            return .none
+            
+        }
     }
     
     func update(state: Syrmo.State, message: Syrmo.Message) -> (Syrmo.State, Syrmo.Command?)? {
@@ -92,9 +136,15 @@ final class Application: Portal.Application {
         switch (state, message) {
             
         case (.idle, .applicationStarted):
-            return  (.feedLoaded(skateTricks: feedItems(itemsCount: 20), trickNeedsCommentsAlert: .none), .none)
+            let state: Syrmo.State = .feed(
+                .loaded(
+                    skateTricks: feedItems(itemsCount: 20),
+                    trickNeedsCommentsAlert: .none
+                )
+            )
+            return  (state, .none)
             
-        case (.feedLoaded(var skateTricks, .none), .socialAction(let socialAction)):
+        case (.feed(.loaded(var skateTricks, .none)), .socialAction(let socialAction)):
             switch socialAction {
                 
             case .like(let skateTrickId):
@@ -102,16 +152,41 @@ final class Application: Portal.Application {
                 skateTrick.likedByMe = !skateTrick.likedByMe
                 skateTrick.likesCount = skateTrick.likedByMe ? skateTrick.likesCount + 1 : skateTrick.likesCount - 1
                 skateTricks[index] = skateTrick
-                return (.feedLoaded(skateTricks: skateTricks, trickNeedsCommentsAlert: .none), .none)
+                return (.feed(.loaded(skateTricks: skateTricks, trickNeedsCommentsAlert: .none)), .none)
                 
             case .showComments(let skateTrickId):
                 let (_, skateTrick) = skateTricks.findBy(id: skateTrickId)!
-                return (.feedLoaded(skateTricks: skateTricks, trickNeedsCommentsAlert: skateTrick), .none)
+                return (.feed(.loaded(skateTricks: skateTricks, trickNeedsCommentsAlert: skateTrick)), .none)
                 
             }
             
-        case (.feedLoaded(let skateTricks, .some(_)), .commentsAlertDismissed):
-            return (.feedLoaded(skateTricks: skateTricks, trickNeedsCommentsAlert: .none), .none)
+        case (.feed(.loaded(let skateTricks, .none)), .show(let skateTrickId)):
+            if let (skateTrickIndex, _) = skateTricks.findBy(id: skateTrickId) {
+                return (.trickDetail(skateTricks: skateTricks, skateTrickIndex: skateTrickIndex), .none)
+            }
+            return .none
+            
+            
+        case (.feed(.loaded(let skateTricks, .some(_))), .commentsAlertDismissed):
+            return (.feed(.loaded(skateTricks: skateTricks, trickNeedsCommentsAlert: .none)), .none)
+            
+        case (.trickDetail(var skateTricks, let skateTrickIndex), .socialAction(let socialAction)):
+            var skateTrick = skateTricks[skateTrickIndex]
+            switch socialAction {
+                
+            case .like:
+                skateTrick.likedByMe = !skateTrick.likedByMe
+                skateTrick.likesCount = skateTrick.likedByMe ? skateTrick.likesCount + 1 : skateTrick.likesCount - 1
+                skateTricks[skateTrickIndex] = skateTrick
+                return (.trickDetail(skateTricks: skateTricks, skateTrickIndex: skateTrickIndex), .none)
+                
+            case .showComments:
+                return .none
+                
+            }
+            
+        case (.trickDetail(let skateTricks, _), .showFeed):
+            return (.feed(.loaded(skateTricks: skateTricks, trickNeedsCommentsAlert: .none)), .none)
             
         default:
             return .none
@@ -127,11 +202,22 @@ final class Application: Portal.Application {
                 root: .stack(syrmoNavigationBar()),
                 component: container()
             )
+        
+        case .feed(.fetching):
+            return Syrmo.View(
+                navigator: .main,
+                root: .stack(syrmoNavigationBar()),
+                component: container(
+                    children: [
+                        label(text: "Loading ...")
+                    ]
+                )
+            )
             
-        case .feedLoaded(let skateTricks, .none):
+        case .feed(.loaded(let skateTricks, .none)):
             return createFeedView(items: skateTricks)
             
-        case .feedLoaded(_, .some(let skateTrick)):
+        case .feed(.loaded(_, .some(let skateTrick))):
             return Syrmo.View(
                 navigator: .main,
                 root: .stack(syrmoNavigationBar()),
@@ -140,6 +226,13 @@ final class Application: Portal.Application {
                     text: "Skate trick with ID '\(skateTrick.object.id.value)' has \(skateTrick.commentsCount) comments",
                     button: AlertProperties.Button(title: "OK", onTap: .sendMessage(.commentsAlertDismissed))
                 )
+            )
+            
+        case .trickDetail(let skateTricks, let skateTrickIndex):
+            return Syrmo.View(
+                navigator: .main,
+                root: .stack(syrmoNavigationBar()),
+                component: skateTrickDetailView(skateTrick: skateTricks[skateTrickIndex])
             )
             
         }
